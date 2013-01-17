@@ -1,0 +1,52 @@
+package pl.boboli.engineer.teoria.rules
+
+import pl.boboli.engineer.test.model.DummyObject;
+ 
+import java.util.ArrayList;
+
+
+rule "RULE-1"
+	salience 4
+    when
+    	$obj:ArrayList()
+    then
+    	$obj.add("RULE-1");
+    	System.out.println("Rule RULE-1 (salience 100) fired succesfully");
+end
+
+rule "RULE-2"
+	salience 3
+    when
+    	$obj:ArrayList()
+    then
+    	$obj.add("RULE-2");
+    	System.out.println("Rule RULE-2  (salience 90)  fired succesfully");
+end
+
+rule "RULE-3"
+	salience 2
+    when
+    	$obj:ArrayList()
+    then
+    	$obj.add("RULE-3");
+    	System.out.println("Rule RULE-3  (salience 80)  fired succesfully");
+end
+
+rule "RULE-4"
+	salience 1
+    when
+    	$obj:ArrayList()
+    then
+    	$obj.add("RULE-4");
+    	System.out.println("Rule RULE-4  (salience 70) fired succesfully");
+end
+
+
+
+
+
+
+
+
+
+

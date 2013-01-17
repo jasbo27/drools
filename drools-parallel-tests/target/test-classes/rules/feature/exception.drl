@@ -1,0 +1,28 @@
+package pl.boboli.engineer.teoria.rules
+
+global java.util.concurrent.CountDownLatch start;
+
+global java.util.concurrent.CountDownLatch stop;
+global Integer ITERATIONS;
+global Integer SLEEP_TIME;
+
+import pl.boboli.engineer.test.model.DummyObject;
+import java.lang.Thread;
+ 
+import java.util.ArrayList;
+
+import function pl.boboli.engineer.test.feature.CritSection.waitOnStart;
+import function pl.boboli.engineer.test.feature.CritSection.waitOnStop;
+import function pl.boboli.engineer.test.feature.CritSection.sleep;
+
+
+
+
+rule "rule-0"
+	agenda-group "PARALLEL_GROUP"
+    when
+    	$obj:DummyObject(
+    	)
+    then
+    	throw new RuntimeException("Catch me!");
+end

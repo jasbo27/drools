@@ -1,0 +1,197 @@
+package pl.boboli.engineer.teoria.rules
+
+global java.util.concurrent.CountDownLatch start;
+
+global java.util.concurrent.CountDownLatch stop;
+global Integer ITERATIONS;
+global Integer SLEEP_TIME;
+
+import pl.boboli.engineer.test.model.DummyObject;
+import java.lang.Thread;
+ 
+import java.util.ArrayList;
+
+import function pl.boboli.engineer.test.feature.CritSection.waitOnStart;
+import function pl.boboli.engineer.test.feature.CritSection.waitOnStop;
+import function pl.boboli.engineer.test.feature.CritSection.sleep;
+
+
+
+rule "rule-0"
+	agenda-group "PARALLEL_GROUP"
+    when
+    	$obj:ArrayList()
+    then
+    	int ruleIndex = 0;
+		waitOnStart(start,ruleIndex);
+		for(int j=0;j<ITERATIONS;j++)
+		{
+			DummyObject object = new DummyObject("rule-"+ruleIndex,ruleIndex,j);
+				sleep(SLEEP_TIME);
+				insert(object);
+		}    	
+    	waitOnStop(stop,ruleIndex);
+end
+
+rule "rule-1"
+	agenda-group "PARALLEL_GROUP"
+    when
+    	$obj:ArrayList()
+    then
+    	int ruleIndex = 1;
+		waitOnStart(start,ruleIndex);
+		for(int j=0;j<ITERATIONS;j++)
+		{
+			DummyObject object = new DummyObject("rule-"+ruleIndex,ruleIndex,j);
+				sleep(SLEEP_TIME);
+				insert(object);
+		}    	
+    	waitOnStop(stop,ruleIndex);
+end
+
+
+rule "rule-2"
+	agenda-group "PARALLEL_GROUP"
+    when
+    	$obj:ArrayList()
+    then
+    	int ruleIndex = 2;
+		waitOnStart(start,ruleIndex);
+		for(int j=0;j<ITERATIONS;j++)
+		{
+			sleep(SLEEP_TIME);
+			insert(new DummyObject("rule-"+ruleIndex,ruleIndex,j));
+		}    	
+    	waitOnStop(stop,ruleIndex);
+end
+
+rule "rule-3"
+	agenda-group "PARALLEL_GROUP"
+    when
+    	$obj:ArrayList()
+    then
+    	int ruleIndex = 3;
+		waitOnStart(start,ruleIndex);
+		for(int j=0;j<ITERATIONS;j++)
+		{
+			sleep(SLEEP_TIME);
+			insert(new DummyObject("rule-"+ruleIndex,ruleIndex,j));
+		}    	
+    	waitOnStop(stop,ruleIndex);
+end
+rule "rule-4"
+	agenda-group "PARALLEL_GROUP"
+    when
+    	$obj:ArrayList()
+    then
+    	int ruleIndex = 4;
+    	
+		waitOnStart(start,ruleIndex);
+		for(int j=0;j<ITERATIONS;j++)
+		{
+			sleep(SLEEP_TIME);
+			insert(new DummyObject("rule-"+ruleIndex,ruleIndex,j));
+		}    	
+    	waitOnStop(stop,ruleIndex);
+end
+rule "rule-5"
+	agenda-group "PARALLEL_GROUP"
+    when
+    	$obj:ArrayList()
+    then
+    	int ruleIndex = 5;
+    	
+		waitOnStart(start,ruleIndex);
+		for(int j=0;j<ITERATIONS;j++)
+		{
+			sleep(SLEEP_TIME);
+			insert(new DummyObject("rule-"+ruleIndex,ruleIndex,j));
+		}    	
+    	waitOnStop(stop,ruleIndex);
+end
+rule "rule-6"
+	agenda-group "PARALLEL_GROUP"
+    when
+    	$obj:ArrayList()
+    then
+    	int ruleIndex = 6;
+    	
+		waitOnStart(start,ruleIndex);
+		for(int j=0;j<ITERATIONS;j++)
+		{
+			sleep(SLEEP_TIME);
+			insert(new DummyObject("rule-"+ruleIndex,ruleIndex,j));
+		}    	
+    	waitOnStop(stop,ruleIndex);
+end
+rule "rule-7"
+	agenda-group "PARALLEL_GROUP"
+    when
+    	$obj:ArrayList()
+    then
+    	int ruleIndex = 7;
+    	
+		waitOnStart(start,ruleIndex);
+		for(int j=0;j<ITERATIONS;j++)
+		{
+			sleep(SLEEP_TIME);
+			insert(new DummyObject("rule-"+ruleIndex,ruleIndex,j));
+		}    	
+    	waitOnStop(stop,ruleIndex);
+end
+rule "rule-8"
+	agenda-group "PARALLEL_GROUP"
+    when
+    	$obj:ArrayList()
+    then
+    	int ruleIndex = 8;
+    	
+		waitOnStart(start,ruleIndex);
+		for(int j=0;j<ITERATIONS;j++)
+		{
+			sleep(SLEEP_TIME);
+			insert(new DummyObject("rule-"+ruleIndex,ruleIndex,j));
+		}    	
+    	waitOnStop(stop,ruleIndex);
+end
+rule "rule-9"
+	agenda-group "PARALLEL_GROUP"
+    when
+    	$obj:ArrayList()
+    then
+    	int ruleIndex = 9;
+    	
+		waitOnStart(start,ruleIndex);
+		for(int j=0;j<ITERATIONS;j++)
+		{
+			sleep(SLEEP_TIME);
+			insert(new DummyObject("rule-"+ruleIndex,ruleIndex,j));
+		}    	
+    	waitOnStop(stop,ruleIndex);
+end
+rule "rule-10"
+	agenda-group "PARALLEL_GROUP"
+    when
+    	$obj:ArrayList()
+    then
+   		int ruleIndex = 10;
+    	
+		waitOnStart(start,ruleIndex);
+		for(int j=0;j<ITERATIONS;j++)
+		{
+			sleep(SLEEP_TIME);
+			insert(new DummyObject("rule-"+ruleIndex,ruleIndex,j));
+		}    	
+    	waitOnStop(stop,ruleIndex);	
+end
+
+
+
+
+
+
+
+
+
+
+

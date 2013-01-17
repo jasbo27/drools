@@ -1,0 +1,116 @@
+package pl.boboli.engineer.teoria.rules
+
+global java.util.concurrent.CountDownLatch start;
+
+global java.util.concurrent.CountDownLatch stop;
+global Integer ITERATIONS;
+global Integer SLEEP_TIME;
+
+import pl.boboli.engineer.test.model.DummyObject;
+import java.lang.Thread;
+ 
+import java.util.ArrayList;
+
+import function pl.boboli.engineer.test.feature.CritSection.waitOnStart;
+import function pl.boboli.engineer.test.feature.CritSection.waitOnStop;
+import function pl.boboli.engineer.test.feature.CritSection.sleep;
+
+
+
+
+rule "rule-0"
+	agenda-group "PARALLEL_GROUP"
+    when
+    	$obj:DummyObject(
+    		name =="shared",
+    		$j:j,
+    		modifiedJ==false
+    	)
+    then
+    	System.out.println("rule-0 fired:");
+    	int ruleIndex = 0;
+		waitOnStart(start,ruleIndex);
+		for(int i = 0; i < ITERATIONS; i++){
+	 		//sleep(SLEEP_TIME);
+			//System.out.println("j before:"+$obj.getJ());
+			int j = i;
+			System.out.println("setting j to"+j);
+			modify($obj){
+				setJ(j),
+				setModifiedJ(true);
+			}
+			if($obj.isModifiedJ()!=true){
+				throw (new RuntimeException("j should be "+true+", but is " + $obj.isModifiedJ()));
+			}
+			if($obj.getJ()!=i){
+				throw (new RuntimeException("j should be "+i+", but is " + $obj.getJ()));
+			}
+		}	
+    	waitOnStop(stop,ruleIndex);
+end
+
+
+rule "rule-1"
+	agenda-group "PARALLEL_GROUP"
+    when
+    	$obj:DummyObject(
+    		name =="shared",
+    		$k:k,
+    		modifiedK==false
+    	)
+    then
+    	System.out.println("rule-1 fired:");
+    	int ruleIndex = 1;
+		waitOnStart(start,ruleIndex);
+		for(int i = 0; i < ITERATIONS; i++){
+	 		//sleep(SLEEP_TIME);
+	 		int k=i+100;
+	 		System.out.println("setting k to"+k);
+			modify($obj){
+				setK(k),
+				setModifiedK(true);
+			}
+			if($obj.isModifiedK()!=true){
+				throw (new RuntimeException("j should be "+true+", but is " + $obj.isModifiedK()));
+			}
+			if($obj.getK()!=i+100){
+				throw (new RuntimeException("k should be "+(i+100)+", but is " + $obj.getK()));
+			}
+			
+		}	 	     	
+    	waitOnStop(stop,ruleIndex);
+end
+
+
+
+rule "rule-2"
+	agenda-group "NON_PARALLEL_GROUP"
+    when
+    	$obj:DummyObject(
+    		name =="shared",
+    		$modifiedJ:modifiedJ==false,
+    		$j: j,
+    		$k: k
+
+    	)
+    then 
+    	throw new RuntimeException("J should be modified at this point");
+    	
+end
+
+rule "rule-3"
+	agenda-group "NON_PARALLEL_GROUP"
+    when
+    	$obj:DummyObject(
+    		name =="shared",
+    		$modifiedJ:modifiedJ==true,
+    		$j: j,
+    		$k: k
+
+    	)
+    then
+    	System.out.println("j="+$j+",k="+$k);
+
+end
+
+

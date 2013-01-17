@@ -1,0 +1,175 @@
+package pl.boboli.engineer.teoria.rules
+
+global java.util.concurrent.CountDownLatch start;
+
+global java.util.concurrent.CountDownLatch stop;
+global Integer ITERATIONS;
+
+import pl.boboli.engineer.test.model.DummyObject;
+import java.lang.Thread;
+ 
+import java.util.ArrayList;
+
+import function pl.boboli.engineer.test.feature.CritSection.waitOnStart;
+import function pl.boboli.engineer.test.feature.CritSection.waitOnStop;
+
+
+
+rule "rule-0"
+	agenda-group "PARALLEL_GROUP"
+    when
+    	$obj:ArrayList()
+    then
+    	String threadName = Thread.currentThread().getName();
+		System.out.println("Thread "+threadName+": before start");
+		waitOnStart(start,0);
+		System.out.println("Thread "+threadName+": after start");
+		
+		$obj.add("rule-0");
+    	
+    	waitOnStop(stop,0);
+    	System.out.println("Rule thread-1 fired succesfully");
+end
+
+rule "rule-1"
+	agenda-group "PARALLEL_GROUP"
+    when
+    	$obj:ArrayList()
+    then
+    	String threadName = Thread.currentThread().getName();
+    	System.out.println("Thread "+threadName+": before start");
+		waitOnStart(start,1);
+		System.out.println("Thread "+threadName+": after start");
+    	$obj.add("rule-1");
+    	waitOnStop(stop,1);
+    	System.out.println("Rule thread-2 fired succesfully");
+end
+
+rule "rule-2"
+	agenda-group "PARALLEL_GROUP"
+    when
+    	$obj:ArrayList()
+    then
+    	String threadName = Thread.currentThread().getName();
+    	System.out.println("Thread "+threadName+": before start");
+		waitOnStart(start,2);
+		System.out.println("Thread "+threadName+": after start");
+    	$obj.add("rule-2");
+    	waitOnStop(stop,2);
+    	System.out.println("Rule thread-3 fired succesfully");
+end
+
+rule "rule-3"
+	agenda-group "PARALLEL_GROUP"
+    when
+    	$obj:ArrayList()
+    then
+    	String threadName = Thread.currentThread().getName();
+    	System.out.println("Thread "+threadName+": before start");
+		waitOnStart(start,3);
+		System.out.println("Thread "+threadName+": after start");
+    	$obj.add("rule-3");
+    	waitOnStop(stop,3);
+    	System.out.println("Rule thread-4 fired succesfully");
+end
+rule "rule-4"
+	agenda-group "PARALLEL_GROUP"
+    when
+    	$obj:ArrayList()
+    then
+    	String threadName = Thread.currentThread().getName();
+    	System.out.println("Thread "+threadName+": before start");
+		waitOnStart(start,4);
+		System.out.println("Thread "+threadName+": after start");
+    	$obj.add("rule-4");
+    	waitOnStop(stop,4);
+    	System.out.println("Rule thread-4 fired succesfully");
+end
+rule "rule-5"
+	agenda-group "PARALLEL_GROUP"
+    when
+    	$obj:ArrayList()
+    then
+    	String threadName = Thread.currentThread().getName();
+    	System.out.println("Thread "+threadName+": before start");
+		waitOnStart(start,5);
+		System.out.println("Thread "+threadName+": after start");
+    	$obj.add("rule-5");
+    	waitOnStop(stop,5);
+    	System.out.println("Rule thread-4 fired succesfully");
+end
+rule "rule-6"
+	agenda-group "PARALLEL_GROUP"
+    when
+    	$obj:ArrayList()
+    then
+    	String threadName = Thread.currentThread().getName();
+    	System.out.println("Thread "+threadName+": before start");
+		waitOnStart(start,6);
+		System.out.println("Thread "+threadName+": after start");
+    	$obj.add("rule-6");
+    	waitOnStop(stop,6);
+    	System.out.println("Rule thread-4 fired succesfully");
+end
+rule "rule-7"
+	agenda-group "PARALLEL_GROUP"
+    when
+    	$obj:ArrayList()
+    then
+    	String threadName = Thread.currentThread().getName();
+    	System.out.println("Thread "+threadName+": before start");
+		waitOnStart(start,7);
+		System.out.println("Thread "+threadName+": after start");
+    	$obj.add("rule-7");
+    	waitOnStop(stop,7);
+    	System.out.println("Rule thread-4 fired succesfully");
+end
+rule "rule-8"
+	agenda-group "PARALLEL_GROUP"
+    when
+    	$obj:ArrayList()
+    then
+    	String threadName = Thread.currentThread().getName();
+    	System.out.println("Thread "+threadName+": before start");
+		waitOnStart(start,8);
+		System.out.println("Thread "+threadName+": after start");
+    	$obj.add("rule-8");
+    	waitOnStop(stop,8);
+    	System.out.println("Rule thread-4 fired succesfully");
+end
+rule "rule-9"
+	agenda-group "PARALLEL_GROUP"
+    when
+    	$obj:ArrayList()
+    then
+    	String threadName = Thread.currentThread().getName();
+    	System.out.println("Thread "+threadName+": before start");
+		waitOnStart(start,9);
+		System.out.println("Thread "+threadName+": after start");
+    	$obj.add("rule-9");
+    	waitOnStop(stop,9);
+    	System.out.println("Rule thread-4 fired succesfully");
+end
+rule "rule-10"
+	agenda-group "PARALLEL_GROUP"
+    when
+    	$obj:ArrayList()
+    then
+    	String threadName = Thread.currentThread().getName();
+    	System.out.println("Thread "+threadName+": before start");
+		waitOnStart(start,10);
+		System.out.println("Thread "+threadName+": after start");
+    	$obj.add("rule-10");
+    	waitOnStop(stop,10);
+    	System.out.println("Rule thread-4 fired succesfully");
+end
+
+
+
+
+
+
+
+
+
+

@@ -20,13 +20,8 @@ import java.io.Externalizable;
 import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectOutput;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import org.drools.RuleBaseConfiguration;
@@ -34,6 +29,7 @@ import org.drools.WorkingMemory;
 import org.drools.base.DefaultKnowledgeHelper;
 import org.drools.base.SequentialKnowledgeHelper;
 import org.drools.common.RuleFlowGroupImpl.DeactivateCallback;
+import org.drools.common.threaded.FireActivationCallable;
 import org.drools.core.util.ClassUtils;
 import org.drools.core.util.Entry;
 import org.drools.core.util.LinkedListNode;
@@ -126,7 +122,13 @@ public class DefaultAgenda
 
     private volatile boolean                                    isFiringActivation = false;
 
-    private volatile boolean                                    mustNotifyHalt     = false;                          
+    private volatile boolean                                    mustNotifyHalt     = false;
+
+    private boolean parallelismEnabled = false;
+    private int parallelRuleThreadCount  = 0;
+    private Semaphore semaphore = new Semaphore(1);
+
+    private  RuleBaseConfiguration rbc;
 
     // ------------------------------------------------------------
     // Constructors
@@ -208,7 +210,12 @@ public class DefaultAgenda
 
     public void setWorkingMemory(final InternalWorkingMemory workingMemory) {
         this.workingMemory = workingMemory;
-        RuleBaseConfiguration rbc = ((InternalRuleBase) this.workingMemory.getRuleBase()).getConfiguration();
+        this.parallelismEnabled = workingMemory.getSessionConfiguration().isParallelismEnabled();
+        this.parallelRuleThreadCount = workingMemory.getSessionConfiguration().getThreadCount();
+        if(this.parallelRuleThreadCount==0){
+            this.parallelRuleThreadCount=Runtime.getRuntime().availableProcessors();
+        }
+        rbc = ((InternalRuleBase) this.workingMemory.getRuleBase()).getConfiguration();
         if ( rbc.isSequential() ) {
             this.knowledgeHelper = rbc.getComponentFactory().getKnowledgeHelperFactory().newSequentialKnowledgeHelper( this.workingMemory );
         } else {
@@ -282,6 +289,8 @@ public class DefaultAgenda
     
     // @TODO make serialisation work
     private ActivationGroup stagedActivations;
+
+    private Queue<AgendaItem> parallelActivations = new LinkedList<AgendaItem>();
     /**
      * If the item belongs to an activation group, add it
      * 
@@ -410,7 +419,7 @@ public class DefaultAgenda
         }
     }
     
-    public void unstageActivations() {
+    public synchronized void unstageActivations() {
         if ( !declarativeAgenda || getStageActivationsGroup().isEmpty() ) {
             return;
         }        
@@ -1218,7 +1227,11 @@ public class DefaultAgenda
                         try {
                             if ( filter == null || filter.accept( item ) ) {
                                 // fire it
-                                fireActivation( item );
+                                if (parallelismEnabled == true && group.getName().startsWith("PARALLEL_")) {
+                                    addParallelActivation(item);
+                                } else {
+                                    fireActivation(item);
+                                }
                                 result = true;
                             } else {
                                 // otherwise cancel it and try the next
@@ -1240,12 +1253,53 @@ public class DefaultAgenda
                             }
                         }
                     }
+
+                } else {
+                    fireParallelActivations();
                 }
             } while ( tryagain );
         } finally {
             this.workingMemory.activationFired();
         }
         return result;
+    }
+
+    private void addParallelActivation(AgendaItem item) {
+        this.parallelActivations.add(item);
+
+    }
+
+    private void fireParallelActivations() {
+       // int threadPoolSize = parallelActivations.size();
+        int latchSize = parallelActivations.size();
+        if (latchSize == 0 || parallelRuleThreadCount==0||parallelismEnabled==false)
+            return;
+        List<Future<String>> futures = new ArrayList<Future<String>>();
+
+        CountDownLatch latch = new CountDownLatch(latchSize);
+        ExecutorService pool = Executors.newFixedThreadPool(parallelRuleThreadCount);
+        AgendaItem item = null;
+        while ((item = parallelActivations.poll()) != null) {
+            FireActivationCallable task = new FireActivationCallable(this, item, latch);
+            Future future = pool.submit(task);
+            futures.add(future);
+        }
+        try {
+
+            for (Future<String> future : futures) {
+                future.get();
+            }
+            latch.await();
+            pool.shutdown();
+
+        } catch (InterruptedException e) {
+            throw new ConsequenceException(e);
+        } catch (ExecutionException e) {
+            throw new ConsequenceException(e);
+        } finally {
+            parallelActivations.clear();
+        }
+
     }
 
     /**
@@ -1257,10 +1311,15 @@ public class DefaultAgenda
      * @throws ConsequenceException
      *             If an error occurs while attempting to fire the consequence.
      */
-    public synchronized void fireActivation(final Activation activation) throws ConsequenceException {
+    public  void fireActivation(final Activation activation) throws ConsequenceException {
         // We do this first as if a node modifies a fact that causes a recursion
         // on an empty pattern
         // we need to make sure it re-activates
+        try {
+            semaphore.acquire();
+        } catch (InterruptedException e1) {
+            throw new ConsequenceException(e1);
+        }
         this.workingMemory.startOperation();
         isFiringActivation = true;
         try {
@@ -1279,25 +1338,30 @@ public class DefaultAgenda
                 activationGroup.removeActivation( activation );
                 clearAndCancelActivationGroup( activationGroup );
             }
-            activation.setActivated( false );
+            activation.setActivated(false);
+            semaphore.release();
 
             try {
-                               
-                this.knowledgeHelper.setActivation( activation );
-                activation.getConsequence().evaluate( this.knowledgeHelper,
-                                                      this.workingMemory );
-                this.knowledgeHelper.cancelRemainingPreviousLogicalDependencies();
-                this.knowledgeHelper.reset();
+
+                KnowledgeHelper knowledgeHelper = getKnowledgeHelperForParallelExecution();
+                knowledgeHelper.setActivation(activation);
+                activation.getRule().getConsequence().evaluate(knowledgeHelper,
+                        this.workingMemory);
+                semaphore.acquire();
+                knowledgeHelper.cancelRemainingPreviousLogicalDependencies();
+                knowledgeHelper.reset();
             } catch ( final Exception e ) {
-                if ( this.legacyConsequenceExceptionHandler != null ) {
-                    this.legacyConsequenceExceptionHandler.handleException( activation,
-                                                                            this.workingMemory,
-                                                                            e );
-                } else if ( this.consequenceExceptionHandler != null ) {
-                    this.consequenceExceptionHandler.handleException( activation, this.workingMemory.getKnowledgeRuntime(),
-                                                                      e );
-                } else {
-                    throw new RuntimeException( e );
+                synchronized (this) {
+                    if (this.legacyConsequenceExceptionHandler != null) {
+                        this.legacyConsequenceExceptionHandler.handleException(activation,
+                                this.workingMemory,
+                                e);
+                    } else if (this.consequenceExceptionHandler != null) {
+                        this.consequenceExceptionHandler.handleException(activation, this.workingMemory.getKnowledgeRuntime(),
+                                e);
+                    } else {
+                        throw new RuntimeException(e);
+                    }
                 }
             } finally {
                 if ( activation.getFactHandle() != null ) {
@@ -1327,6 +1391,7 @@ public class DefaultAgenda
                                                                            this.workingMemory );
             
             unstageActivations();
+            semaphore.release();
         } finally {
             isFiringActivation = false;
             if (mustNotifyHalt) {
@@ -1334,7 +1399,18 @@ public class DefaultAgenda
                 notifyHalt();
             }
             this.workingMemory.endOperation();
+            semaphore.release();
         }
+    }
+
+    private KnowledgeHelper getKnowledgeHelperForParallelExecution() {
+        KnowledgeHelper knowledgeHelper;
+        if (rbc.isSequential()) {
+            knowledgeHelper = rbc.getComponentFactory().getKnowledgeHelperFactory().newSequentialKnowledgeHelper(this.workingMemory);
+        } else {
+            knowledgeHelper = rbc.getComponentFactory().getKnowledgeHelperFactory().newStatefulKnowledgeHelper(this.workingMemory);
+        }
+        return knowledgeHelper;
     }
 
 
@@ -1348,19 +1424,19 @@ public class DefaultAgenda
         }
     }
 
-    public void increaseActiveActivations() {
+    public synchronized void increaseActiveActivations() {
         this.activeActivations++;
     }
 
-    public void decreaseActiveActivations() {
+    public synchronized void decreaseActiveActivations() {
         this.activeActivations--;
     }
 
-    public void increaseDormantActivations() {
+    public synchronized void increaseDormantActivations() {
         this.dormantActivations++;
     }
 
-    public void decreaseDormantActivations() {
+    public synchronized void decreaseDormantActivations() {
         this.dormantActivations--;
     }
 

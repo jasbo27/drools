@@ -1,0 +1,199 @@
+package pl.boboli.engineer.teoria.rules
+
+global java.util.concurrent.CountDownLatch start;
+
+global java.util.concurrent.CountDownLatch stop;
+global Integer ITERATIONS;
+global Integer SLEEP_TIME;
+
+import pl.boboli.engineer.test.model.DummyObject;
+import java.lang.Thread;
+ 
+import java.util.ArrayList;
+
+import function pl.boboli.engineer.test.feature.CritSection.waitOnStart;
+import function pl.boboli.engineer.test.feature.CritSection.waitOnStop;
+import function pl.boboli.engineer.test.feature.CritSection.sleep;
+
+
+
+rule "rule-0"
+	agenda-group "PARALLEL_GROUP"
+    when
+    	$obj:DummyObject(
+    		name =="rule-0",
+    		$i:i==0
+    	)
+    then
+    	int ruleIndex = 0;
+		waitOnStart(start,ruleIndex);
+		sleep(SLEEP_TIME);
+		modify($obj){
+			setJ($i)
+		}  	
+    	waitOnStop(stop,ruleIndex);
+end
+
+rule "rule-1"
+	agenda-group "PARALLEL_GROUP"
+    when
+    	$obj:DummyObject(
+    		name =="rule-1",
+    		$i:i==1
+    	)
+    then
+    	int ruleIndex = 1;
+		waitOnStart(start,ruleIndex);
+		sleep(SLEEP_TIME);
+		modify($obj){
+			setJ($i)
+		}  	
+    	waitOnStop(stop,ruleIndex);
+end
+
+
+rule "rule-2"
+	agenda-group "PARALLEL_GROUP"
+    when
+    	$obj:DummyObject(
+    		name =="rule-2",
+    		$i:i==2
+    	)
+    then
+    	int ruleIndex = 2;
+		waitOnStart(start,ruleIndex);
+		sleep(SLEEP_TIME);
+		modify($obj){
+			setJ($i)
+		}      	
+    	waitOnStop(stop,ruleIndex);
+end
+
+rule "rule-3"
+	agenda-group "PARALLEL_GROUP"
+    when
+    	$obj:DummyObject(
+    		name =="rule-3",
+    		$i:i==3
+    	)
+    then
+    	int ruleIndex = 3;
+		waitOnStart(start,ruleIndex);
+		sleep(SLEEP_TIME);
+		modify($obj){
+			setJ($i)
+		}     	
+    	waitOnStop(stop,ruleIndex);
+end
+rule "rule-4"
+	agenda-group "PARALLEL_GROUP"
+    when
+    	$obj:DummyObject(
+    		name =="rule-4",
+    		$i:i==4
+    	)
+    then
+    	int ruleIndex = 4;   	
+		waitOnStart(start,ruleIndex);
+		sleep(SLEEP_TIME);
+		modify($obj){
+			setJ($i)
+		}      	
+    	waitOnStop(stop,ruleIndex);
+end
+rule "rule-5"
+	agenda-group "PARALLEL_GROUP"
+    when
+    	$obj:DummyObject(
+    		name =="rule-5",
+    		$i:i==5
+    	)
+    then
+    	int ruleIndex = 5;    	
+		waitOnStart(start,ruleIndex);
+		sleep(SLEEP_TIME);
+		modify($obj){
+			setJ($i)
+		}       	
+    	waitOnStop(stop,ruleIndex);
+end
+rule "rule-6"
+	agenda-group "PARALLEL_GROUP"
+    when
+    	$obj:DummyObject(
+    		name =="rule-6",
+    		$i:i==6
+    	)
+    then
+    	int ruleIndex = 6;    	
+		waitOnStart(start,ruleIndex);
+		sleep(SLEEP_TIME);
+		modify($obj){
+			setJ($i)
+		}      	
+    	waitOnStop(stop,ruleIndex);
+end
+rule "rule-7"
+	agenda-group "PARALLEL_GROUP"
+    when
+    	$obj:DummyObject(
+    		name =="rule-7",
+    		$i:i==7
+    	)
+    then
+    	int ruleIndex = 7;   	
+		waitOnStart(start,ruleIndex);
+		sleep(SLEEP_TIME);
+		modify($obj){
+			setJ($i)
+		}       	
+    	waitOnStop(stop,ruleIndex);
+end
+rule "rule-8"
+	agenda-group "PARALLEL_GROUP"
+    when
+    	$obj:DummyObject(
+    		name =="rule-8",
+    		$i:i==8
+    	)
+    then
+    	int ruleIndex = 8;    	
+		waitOnStart(start,ruleIndex);
+		sleep(SLEEP_TIME);
+		modify($obj){
+			setJ($i)
+		}      	
+    	waitOnStop(stop,ruleIndex);
+end
+rule "rule-9"
+	agenda-group "PARALLEL_GROUP"
+    when
+    	$obj:DummyObject(
+    		name =="rule-9",
+    		$i:i==9
+    	)
+    then
+    	int ruleIndex = 9;   	
+		waitOnStart(start,ruleIndex);
+		sleep(SLEEP_TIME);
+		modify($obj){
+			setJ($i)
+		}      	
+    	waitOnStop(stop,ruleIndex);
+end
+rule "rule-10"
+	agenda-group "PARALLEL_GROUP"
+    when
+    	$obj:DummyObject(
+    		name =="rule-10",
+    		$i:i==10
+    	)
+    then
+   		int ruleIndex = 10;   	
+		waitOnStart(start,ruleIndex);
+		sleep(SLEEP_TIME);
+		modify($obj){
+			setJ($i)
+		}      	
+    	waitOnStop(stop,ruleIndex);	
+end

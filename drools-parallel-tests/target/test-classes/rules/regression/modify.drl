@@ -1,0 +1,16 @@
+package pl.boboli.engineer.teoria.rules
+ 
+import pl.boboli.engineer.test.model.DummyObject;
+ 
+rule "ModifyObject"
+    when
+    	$obj:DummyObject(
+    	name=="hippo"		
+    	)
+    then
+    	System.out.println("modyfiyng (" + $obj + ") in working memory");
+        modify($obj)
+        {
+        	setName("parrot")
+        };
+end

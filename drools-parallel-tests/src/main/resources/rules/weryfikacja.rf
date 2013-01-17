@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<process xmlns="http://drools.org/drools-5.0/process"
+         xmlns:xs="http://www.w3.org/2001/XMLSchema-instance"
+         xs:schemaLocation="http://drools.org/drools-5.0/process drools-processes-5.0.xsd"
+         type="RuleFlow" name="flow" >
+
+  <header>
+  </header>
+
+  <nodes>
+    <start id="1" name="Start" x="232" y="51" width="48" height="48" />
+    <ruleSet id="2" name="WERYFIKACJE NEGATYWNE" x="163" y="140" width="186" height="48" ruleFlowGroup="WERYFIKACJE NEGATYWNE" />
+    <ruleSet id="3" name="WERYFIKACJE POZYTYWNE" x="158" y="244" width="195" height="48" ruleFlowGroup="WERYFIKACJE POZYTYWNE" />
+    <end id="4" name="End" x="230" y="347" width="48" height="48" />
+  </nodes>
+
+  <connections>
+    <connection from="1" to="2" />
+    <connection from="2" to="3" />
+    <connection from="3" to="4" />
+  </connections>
+
+</process>

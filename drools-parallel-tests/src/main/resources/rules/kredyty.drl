@@ -1,0 +1,103 @@
+//created on: Aug 25, 2012
+package bank.kredyty.weryfikacja
+import bank.model.Klient;
+import bank.model.Konto;
+import bank.model.Windykacja;
+import bank.model.RynekKlienta;
+import bank.model.StatusKonta;
+import bank.model.KredytOdnawialny;
+import bank.model.DecyzjaNegatywna;
+import bank.model.DecyzjaPozytywna;
+import bank.model.Decyzja;
+import bank.model.Weryfikacja;
+
+import bank.utils.DateUtils;
+import java.util.Date;
+
+
+rule "Weryfikacja windykacji"
+	
+	agenda-group "WERYFIKACJE NEGATYWNE"
+	when
+		$klient:Klient(
+    	)
+    	$weryfikacja:Weryfikacja(
+			klient==$klient,
+			$dataWeryfikacji:dataWeryfikacji
+		)
+    	Windykacja(
+    		$dataWindykacji:data after[-90d] $dataWeryfikacji,
+    		klient==$klient
+    	)
+	then
+	insert ( new DecyzjaNegatywna($weryfikacja, "Windykacja w ostatnich trzech miesiącach"));
+end
+
+
+
+rule "Weryfikacja sredniego rachunku" 
+	//agenda-group "WERYFIKACJE POZYTYWNE"
+    when
+    	$klient:Klient(
+    		rynek==RynekKlienta.MASOWY
+    	)
+    	$weryfikacja:Weryfikacja(
+			klient==$klient
+		)
+		Konto(
+    		status==StatusKonta.AKTYWNE,
+    		$sredniRachunek:sredniRachunek>12000,
+			klient==$klient
+		)
+		not DecyzjaNegatywna(
+			weryfikacja==$weryfikacja
+		)	
+    then
+    	KredytOdnawialny kredyt = new KredytOdnawialny($klient,$sredniRachunek*3);
+    	Decyzja decyzja =new DecyzjaPozytywna($weryfikacja,kredyt);
+    	System.out.println("Executing rule Weryfikacja sredniego rachunku");
+        insert(decyzja);
+end
+
+rule "Weryfikacja sredniego rachunku 2" 
+	//agenda-group "WERYFIKACJE POZYTYWNE"
+    when
+    	$klient:Klient(
+    		rynek==RynekKlienta.MASOWY
+    	)
+    	$weryfikacja:Weryfikacja(
+			klient==$klient
+		)
+		Konto(
+    		status==StatusKonta.AKTYWNE,
+    		$sredniRachunek:sredniRachunek>10000,
+			klient==$klient
+		)
+		not DecyzjaNegatywna(
+			weryfikacja==$weryfikacja
+		)	
+    then
+    	KredytOdnawialny kredyt = new KredytOdnawialny($klient,$sredniRachunek*3);
+    	Decyzja decyzja =new DecyzjaPozytywna($weryfikacja,kredyt);
+    	System.out.println("Executing rule Weryfikacja sredniego rachunku 2");
+        insert(decyzja);
+end
+
+rule "Weryfikacja spelnienia kryteriow"
+	//salience 0
+	agenda-group "WERYFIKACJE SPELNIENIA KRYTERIOW"
+	when
+		$weryfikacja:Weryfikacja(
+			$klient:klient
+		)
+		not DecyzjaPozytywna(
+			klient==$klient
+		)
+		not DecyzjaNegatywna(
+			klient==$klient
+		)
+	then
+	Decyzja decyzja = new DecyzjaNegatywna($weryfikacja,  "Brak spełnienia wystarczających kryteriów kredytu");
+	insert (decyzja) ;
+end
+

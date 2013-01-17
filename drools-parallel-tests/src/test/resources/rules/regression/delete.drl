@@ -1,0 +1,23 @@
+package pl.boboli.engineer.teoria.rules
+ 
+import pl.boboli.engineer.test.model.DummyObject;
+ 
+rule "DeleteObject"
+    when
+    	$obj:DummyObject(
+    	name=="hippo"		
+    	)
+    then
+    	System.out.println("Deleting (" + $obj + ") from working memory");
+        retract($obj);
+end
+
+
+
+
+
+
+
+
+
+

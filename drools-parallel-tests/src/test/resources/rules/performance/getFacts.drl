@@ -1,0 +1,127 @@
+package pl.boboli.engineer.teoria.rules
+
+
+global pl.boboli.engineer.test.external.CRMSystem crmSystem;
+global pl.boboli.engineer.test.external.DueSystem dueSystem;
+global pl.boboli.engineer.test.external.FeasibilitySystem feasibilitySystem;
+global pl.boboli.engineer.test.external.BillingSystem billingSystem;
+
+import pl.boboli.engineer.test.model.DummyObject;
+import java.lang.Thread;
+ 
+import java.util.ArrayList;
+import java.util.List;
+
+import pl.boboli.engineer.test.external.model.CustomerFact;
+import pl.boboli.engineer.test.external.model.DueFact;
+import pl.boboli.engineer.test.external.model.FeasibilityFact;
+import pl.boboli.engineer.test.external.model.BillingHistoryFact;
+import pl.boboli.engineer.test.external.CRMSystem;
+import pl.boboli.engineer.test.external.DueSystem;
+import pl.boboli.engineer.test.external.FeasibilitySystem;
+import pl.boboli.engineer.test.external.BillingSystem;
+
+
+
+rule "getCustomerFactInParallel"
+	agenda-group "PARALLEL_GROUP"
+    when
+    	not CustomerFact(
+    		
+    	)
+    then
+		CustomerFact customerFact = crmSystem.getFact();
+		insert(customerFact);
+end
+
+rule "getDueFactsInParallel"
+	agenda-group "PARALLEL_GROUP"
+    when
+    	not DueFact(
+    		
+    	)
+    then
+		List<DueFact> dueFacts = dueSystem.getFacts();
+		for(DueFact dueFact:dueFacts){
+			insert(dueFact);	
+		}
+end
+
+
+
+rule "getFeasibilityFactInParallel"
+	agenda-group "PARALLEL_GROUP"
+    when
+    	not FeasibilityFact(
+    		
+    	)
+   then
+			insert(feasibilitySystem.getFact());	
+end
+
+rule "getBillingHistoryFactsInParallel"
+	agenda-group "PARALLEL_GROUP"
+    when
+    	not BillingHistoryFact(
+    		
+    	)
+    then
+		List<BillingHistoryFact> billingHistoryFacts = billingSystem.getFacts();
+		for(BillingHistoryFact billingHistoryFact : billingHistoryFacts){
+			insert(billingHistoryFact);	
+		}
+end
+
+
+
+//GRUPA SEKWENCYJNA
+rule "getCustomerFactInSequence"
+	agenda-group "SEQUENTIAL_GROUP"
+    when
+    	not CustomerFact(
+    		
+    	)
+    then
+		CustomerFact customerFact = crmSystem.getFact();
+		insert(customerFact);
+end
+
+rule "getDueFactsInSequence"
+	agenda-group "SEQUENTIAL_GROUP"
+    when
+    	not DueFact(
+    		
+    	)
+    then
+		List<DueFact> dueFacts = dueSystem.getFacts();
+		for(DueFact dueFact:dueFacts){
+			insert(dueFact);	
+		}
+end
+
+rule "getFeasibilityFactInSequence"
+	agenda-group "SEQUENTIAL_GROUP"
+    when
+    	not FeasibilityFact(
+    		
+    	)
+    then
+		insert(feasibilitySystem.getFact());
+end
+
+rule "getBillingHistoryFactsInSequence"
+	agenda-group "SEQUENTIAL_GROUP"
+    when
+    	not BillingHistoryFact(
+    		
+    	)
+    then
+		List<BillingHistoryFact> billingHistoryFacts = billingSystem.getFacts();
+		for(BillingHistoryFact billingHistoryFact : billingHistoryFacts){
+			insert(billingHistoryFact);	
+		}
+end
+
+
+
+

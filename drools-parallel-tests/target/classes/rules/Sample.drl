@@ -1,0 +1,30 @@
+package pl.boboli.engineer.teoria.rules
+ 
+import pl.boboli.engineer.teoria.model.*;
+ 
+rule "PickupObject"
+    when
+    	Goal(
+    		status=="active",
+    		type=="holds",
+    		$objectName:object
+    	)
+		Object(
+		name==$objectName
+		)
+		not Monkey(
+		holds==$objectName
+		)	
+    then
+        insert(new Goal("active","pickup",$objectName));
+end
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,80 @@
+<object-stream>
+<org.drools.audit.event.ObjectLogEvent>
+  <type>1</type>
+  <factId>1</factId>
+  <objectToString>Beata Minkiewicz</objectToString>
+</org.drools.audit.event.ObjectLogEvent>
+<org.drools.audit.event.ObjectLogEvent>
+  <type>1</type>
+  <factId>2</factId>
+  <objectToString>bank.model.Konto@419c4091</objectToString>
+</org.drools.audit.event.ObjectLogEvent>
+<org.drools.audit.event.ObjectLogEvent>
+  <type>1</type>
+  <factId>3</factId>
+  <objectToString>bank.model.Windykacja@3c90fa05</objectToString>
+</org.drools.audit.event.ObjectLogEvent>
+<org.drools.audit.event.ActivationLogEvent>
+  <type>4</type>
+  <activationId>Weryfikacja sredniego rachunku [2, 4, 1]</activationId>
+  <rule>Weryfikacja sredniego rachunku</rule>
+  <declarations>$klient=Beata Minkiewicz(1); $sredniRachunek=15000.0(2); $weryfikacja=bank.model.Weryfikacja@7f42731(4)</declarations>
+</org.drools.audit.event.ActivationLogEvent>
+<org.drools.audit.event.ActivationLogEvent>
+  <type>4</type>
+  <activationId>Weryfikacja sredniego rachunku 2 [2, 4, 1]</activationId>
+  <rule>Weryfikacja sredniego rachunku 2</rule>
+  <declarations>$klient=Beata Minkiewicz(1); $sredniRachunek=15000.0(2); $weryfikacja=bank.model.Weryfikacja@7f42731(4)</declarations>
+</org.drools.audit.event.ActivationLogEvent>
+<org.drools.audit.event.ActivationLogEvent>
+  <type>4</type>
+  <activationId>Weryfikacja spelnienia kryteriow [4]</activationId>
+  <rule>Weryfikacja spelnienia kryteriow</rule>
+  <declarations>$klient=Beata Minkiewicz(4); $weryfikacja=bank.model.Weryfikacja@7f42731(4)</declarations>
+</org.drools.audit.event.ActivationLogEvent>
+<org.drools.audit.event.ObjectLogEvent>
+  <type>1</type>
+  <factId>4</factId>
+  <objectToString>bank.model.Weryfikacja@7f42731</objectToString>
+</org.drools.audit.event.ObjectLogEvent>
+<org.drools.audit.event.ActivationLogEvent>
+  <type>6</type>
+  <activationId>Weryfikacja sredniego rachunku 2 [2, 4, 1]</activationId>
+  <rule>Weryfikacja sredniego rachunku 2</rule>
+  <declarations>$klient=Beata Minkiewicz(1); $sredniRachunek=15000.0(2); $weryfikacja=bank.model.Weryfikacja@7f42731(4)</declarations>
+</org.drools.audit.event.ActivationLogEvent>
+<org.drools.audit.event.ActivationLogEvent>
+  <type>5</type>
+  <activationId>Weryfikacja spelnienia kryteriow [4]</activationId>
+  <rule>Weryfikacja spelnienia kryteriow</rule>
+  <declarations>$klient=Beata Minkiewicz(4); $weryfikacja=bank.model.Weryfikacja@7f42731(4)</declarations>
+</org.drools.audit.event.ActivationLogEvent>
+<org.drools.audit.event.ObjectLogEvent>
+  <type>1</type>
+  <factId>5</factId>
+  <objectToString>POZYTYWNA, kredyt odnawialny w wysokości 45000.0</objectToString>
+</org.drools.audit.event.ObjectLogEvent>
+<org.drools.audit.event.ActivationLogEvent>
+  <type>7</type>
+  <activationId>Weryfikacja sredniego rachunku 2 [2, 4, 1]</activationId>
+  <rule>Weryfikacja sredniego rachunku 2</rule>
+  <declarations>$klient=Beata Minkiewicz(1); $sredniRachunek=15000.0(2); $weryfikacja=bank.model.Weryfikacja@7f42731(4)</declarations>
+</org.drools.audit.event.ActivationLogEvent>
+<org.drools.audit.event.ActivationLogEvent>
+  <type>6</type>
+  <activationId>Weryfikacja sredniego rachunku [2, 4, 1]</activationId>
+  <rule>Weryfikacja sredniego rachunku</rule>
+  <declarations>$klient=Beata Minkiewicz(1); $sredniRachunek=15000.0(2); $weryfikacja=bank.model.Weryfikacja@7f42731(4)</declarations>
+</org.drools.audit.event.ActivationLogEvent>
+<org.drools.audit.event.ObjectLogEvent>
+  <type>1</type>
+  <factId>6</factId>
+  <objectToString>POZYTYWNA, kredyt odnawialny w wysokości 45000.0</objectToString>
+</org.drools.audit.event.ObjectLogEvent>
+<org.drools.audit.event.ActivationLogEvent>
+  <type>7</type>
+  <activationId>Weryfikacja sredniego rachunku [2, 4, 1]</activationId>
+  <rule>Weryfikacja sredniego rachunku</rule>
+  <declarations>$klient=Beata Minkiewicz(1); $sredniRachunek=15000.0(2); $weryfikacja=bank.model.Weryfikacja@7f42731(4)</declarations>
+</org.drools.audit.event.ActivationLogEvent>
+</object-stream>

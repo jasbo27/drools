@@ -691,7 +691,7 @@ public abstract class AbstractWorkingMemory
                                         true ) ) {
             try {
                 startOperation();
-                ruleBase.readLock();
+               //JBO ruleBase.readLock();
                 
                 // If we're already firing a rule, then it'll pick up
                 // the firing for any other assertObject(..) that get
@@ -711,7 +711,7 @@ public abstract class AbstractWorkingMemory
                                                       fireLimit );
                 return fireCount;
             } finally {
-                ruleBase.readUnlock();
+           //JBO     ruleBase.readUnlock();
                 endOperation();
                 this.firing.set( false );
             }

@@ -91,6 +91,9 @@ public class SessionConfiguration
     
     private transient TimerJobFactoryManager timerJobFactoryManager;
     private TimerJobFactoryType              timerJobFactoryType;
+    private boolean parallelismEnabled;
+    private int threadCount;
+
 
     public void writeExternal(ObjectOutput out) throws IOException {
         out.writeObject( chainedProperties );
@@ -471,6 +474,14 @@ public class SessionConfiguration
         return null;
     }
 
+    public boolean isParallelismEnabled() {
+        return parallelismEnabled;
+    }
+
+    public void setParallelismEnabled(boolean parallelismEnabled) {
+        this.parallelismEnabled = parallelismEnabled;
+    }
+
     @SuppressWarnings("unchecked")
     public <T extends MultiValueKnowledgeSessionOption> T getOption(Class<T> option,
                                                                     String key) {
@@ -508,4 +519,11 @@ public class SessionConfiguration
         return this.queryListener;
     }
 
+    public void setThreadCount(int threadCount) {
+        this.threadCount = threadCount;
+    }
+
+    public int getThreadCount() {
+        return threadCount;
+    }
 }

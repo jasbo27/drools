@@ -1,0 +1,13 @@
+package pl.boboli.engineer.teoria.rules
+ 
+import pl.boboli.engineer.test.model.DummyObject;
+ 
+rule "InsertObject"
+    when
+    	not DummyObject(		
+    	)
+    then
+    	DummyObject obj = new DummyObject("monkey");
+    	System.out.println("Inserting (" + obj+  ") into working memory");
+        insert(obj);
+end
