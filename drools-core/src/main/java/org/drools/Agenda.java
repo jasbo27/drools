@@ -59,6 +59,9 @@ public interface Agenda extends org.drools.runtime.rule.Agenda {
      */
     public void activateRuleFlowGroup(String name, long processInstanceId, String nodeInstanceId);
 
+    public void activateRuleFlowGroup(String name, long processInstanceId, String nodeInstanceId, boolean parallel, int maxThreadsCount);
+
+
     /**
      * Deactivates the <code>RuleFlowGroup</code> with the given name.
      * All activations in the given <code>RuleFlowGroup</code> are removed from the agenda.

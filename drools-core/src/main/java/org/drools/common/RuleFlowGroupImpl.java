@@ -55,6 +55,8 @@ public class RuleFlowGroupImpl
     private LinkedList<ActivationNode>  list;
     private List<RuleFlowGroupListener> listeners;
     private Map<Long, String>           nodeInstances    = new HashMap<Long, String>();
+    private boolean parallel = false;
+    private int maxThreadsCount = 0;
 
     public RuleFlowGroupImpl() {
 
@@ -348,4 +350,19 @@ public class RuleFlowGroupImpl
         return nodeInstances;
     }
 
+    public boolean isParallel() {
+        return parallel;
+    }
+
+    public void setParallel(boolean parallel) {
+        this.parallel = parallel;
+    }
+
+    public int getMaxThreadsCount() {
+        return maxThreadsCount;
+    }
+
+    public void setMaxThreadsCount(int maxThreadsCount) {
+        this.maxThreadsCount = maxThreadsCount;
+    }
 }

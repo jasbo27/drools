@@ -74,6 +74,11 @@ public class AgendaImpl
         this.agenda.activateRuleFlowGroup(name, processInstanceId, nodeInstanceId);
     }
 
+    public void activateRuleFlowGroup(String name, long processInstanceId, String nodeInstanceId, boolean parallel, int maxThreadsCount){
+        this.agenda.activateRuleFlowGroup(name, processInstanceId, nodeInstanceId, parallel, maxThreadsCount);
+    }
+
+
     public void deactivateRuleFlowGroup(String name) {
         this.agenda.deactivateRuleFlowGroup(name);
     }

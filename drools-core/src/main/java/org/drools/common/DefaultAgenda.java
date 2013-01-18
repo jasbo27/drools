@@ -929,9 +929,15 @@ public class DefaultAgenda
     }
 
     public void activateRuleFlowGroup(final String name, long processInstanceId, String nodeInstanceId) {
+        activateRuleFlowGroup(name,processInstanceId, nodeInstanceId, false, 0);
+    }
+
+    public void activateRuleFlowGroup(String name, long processInstanceId, String nodeInstanceId, boolean parallel, int maxThreadsCount) {
         InternalRuleFlowGroup ruleFlowGroup = (InternalRuleFlowGroup) getRuleFlowGroup( name );
         ruleFlowGroup.addNodeInstance(processInstanceId, nodeInstanceId);
         ruleFlowGroup.setActive( true );
+        ruleFlowGroup.setParallel(parallel);
+        ruleFlowGroup.setMaxThreadsCount(maxThreadsCount);
     }
 
     public void deactivateRuleFlowGroup(final String name) {

@@ -253,6 +253,8 @@
       <xs:attribute name="width" type="xs:string"/>
       <xs:attribute name="height" type="xs:string"/>
       <xs:attribute name="ruleFlowGroup" type="xs:string"/>
+      <xs:attribute name="parallel" type="xs:string"/>
+      <xs:attribute name="maxThreadCount" type="xs:string"/>
     </xs:complexType>
   </xs:element>
   <xs:element name="split">

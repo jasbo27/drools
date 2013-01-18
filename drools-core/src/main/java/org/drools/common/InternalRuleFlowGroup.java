@@ -63,5 +63,8 @@ public interface InternalRuleFlowGroup extends RuleFlowGroup {
     void removeNodeInstance(Long processInstanceId, String nodeInstanceId);
     
     Map<Long, String> getNodeInstances();
-    
+
+    void setParallel(boolean parallel);
+
+    void setMaxThreadsCount(int maxThreadsCount);
 }
