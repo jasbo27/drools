@@ -11,3 +11,11 @@
 
 # Repository wide ignore mac DS_Store files
 .DS_Store
+
+drools-parallel-tests/target/surefire-reports/TEST-pl.boboli.engineer.test.feature.KnowledgeUpdateTest.xml
+
+*.iml
+
+*.jar
+
+drools-parallel-tests/drools-parallel-tests.iml
