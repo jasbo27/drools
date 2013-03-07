@@ -1,8 +1,10 @@
 package pl.boboli.engineer.test.performance;
 
+import java.util.ArrayList;
 import java.util.concurrent.CountDownLatch;
 
 import org.drools.runtime.StatefulKnowledgeSession;
+import org.drools.runtime.rule.AgendaGroup;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -34,17 +36,41 @@ public class PerformanceComparisonTest extends AbstractTest {
 
 	@Test
 	public void testParallel() throws Exception {
+        ArrayList<PerformanceResult> performanceResultList = new ArrayList<PerformanceResult>();
 		System.out.println("Testing n threads...1/1");
-		long parallelRunTime = fireInParallel();
-
-		long sequentialRunTime = fireInOneThread();
-
-		System.out.println("Getting facts in parallel time:" + parallelRunTime);
-		System.out.println("Getting facts in sequential time:"
-				+ sequentialRunTime);
+        for(int i = 0;i<10;i++){
+            PerformanceResult result = new PerformanceResult();
+            result.setParallelRunTime(fireInParallel());
+            result.setSequentialRunTime(fireInOneThread());
+            performanceResultList.add(result);
+		System.out.println("Iteration:"+i+": Getting facts in parallel time:" + result.getParallelRunTime());
+		System.out.println("Iteration:"+i+": Getting facts in sequential time:"
+				+ result.getSequentialRunTime());
+        }
+        long avgSequentialRuntime = countAverageSequentialRunTime(performanceResultList);
+        long  avgParallelRuntime = countAverageParallelRunTime(performanceResultList);
+        System.out.println("Parallel average run time:" +  avgParallelRuntime);
+        System.out.println("Sequential average run time:" +  avgSequentialRuntime);
 	}
 
-	private long fireInOneThread() throws Exception {
+    private long countAverageSequentialRunTime(ArrayList<PerformanceResult> performanceResultList) {
+        int count = performanceResultList.size();
+        long sum = 0l;
+        for(PerformanceResult performanceResult: performanceResultList){
+            sum+=performanceResult.getSequentialRunTime();
+        }
+        return sum/count;  //To change body of created methods use File | Settings | File Templates.
+    }
+    private long countAverageParallelRunTime(ArrayList<PerformanceResult> performanceResultList) {
+        int count = performanceResultList.size();
+        long sum = 0l;
+        for(PerformanceResult performanceResult: performanceResultList){
+            sum+=performanceResult.getParallelRunTime();
+        }
+        return sum/count;  //To change body of created methods use File | Settings | File Templates.
+    }
+
+    private long fireInOneThread() throws Exception {
 		long startTime = System.currentTimeMillis();
 		setParallismEnabled(false);
 		// test uruchomienia sekwencyjnego
@@ -58,12 +84,15 @@ public class PerformanceComparisonTest extends AbstractTest {
 
 	private long fireInParallel() throws Exception {
 		long startTime = System.currentTimeMillis();
-		setParallismEnabled(true);
-        setThreadCount(10);
 		// test uruchomienia równoległego
 		StatefulKnowledgeSession ksession = readSession();
 		insertGlobalsToSession(ksession);
-		ksession.getAgenda().getAgendaGroup("PARALLEL_GROUP").setFocus();
+        org.drools.runtime.rule.AgendaGroup group =ksession.getAgenda().getAgendaGroup("P_GROUP");//.setFocus();
+        group.setParallel(true);
+        group.setMaxThreadCount(10);
+        group.setFocus();
+
+        group.setFocus();
 		ksession.fireAllRules();
 		ksession.dispose();
 		return System.currentTimeMillis() - startTime;

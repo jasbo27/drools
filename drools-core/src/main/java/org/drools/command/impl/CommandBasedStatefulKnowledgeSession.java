@@ -342,6 +342,21 @@ public class CommandBasedStatefulKnowledgeSession
                             command.setName( name );
                             commandService.execute( command );
                         }
+
+                        public boolean isParallel() {
+                            return false;                          }
+
+                        public void setParallel(boolean parallel) {
+
+                        }
+
+                        public int getMaxThreadCount() {
+                            return 0;
+                        }
+
+                        public void setMaxThreadCount(int maxThreadCount) {
+
+                        }
                     };
                 }
 

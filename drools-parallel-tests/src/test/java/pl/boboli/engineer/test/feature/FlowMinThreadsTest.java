@@ -1,32 +1,28 @@
 package pl.boboli.engineer.test.feature;
 
-import static org.junit.Assert.*;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import pl.boboli.engineer.test.AbstractTest;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-
-import pl.boboli.engineer.test.AbstractTest;
+import static org.junit.Assert.assertTrue;
 
 public class FlowMinThreadsTest extends AbstractTest{
-	final int MAX_THREADS=11;
+	final int MAX_THREADS=9;
 	CountDownLatch start = new CountDownLatch(MAX_THREADS);
 	CountDownLatch stop = new CountDownLatch(MAX_THREADS);
 	List<String> eventList;
 	@Before
 	public void setUp() throws Exception {
-		ruleLocations = new String[] {"rules/feature/nthreads.drl"};
+        ruleLocations = new String[] { "rules/feature/nthreadsflow.drl" , "rules/feature/nthreads.rf"};
 		setParallismEnabled(true);
-        setThreadCount(MAX_THREADS);
 		super.setUp();
 		ksession.setGlobal("start", start);
 		ksession.setGlobal("stop", stop);
-		
-		ksession.getAgenda().getAgendaGroup("PARALLEL_GROUP").setFocus();
 		eventList = new ArrayList<String>();
 		ksession.insert(eventList);
 	}
@@ -43,6 +39,7 @@ public class FlowMinThreadsTest extends AbstractTest{
 		//przed dodaniem obiektu pamięć powinna być pusta
         Thread thread = new Thread() {
             public void run() {
+                ksession.startProcess("dummyProcess");
                 ksession.fireAllRules();
             }
         };

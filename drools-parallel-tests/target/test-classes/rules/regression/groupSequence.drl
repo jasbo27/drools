@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 
 rule "shouldFire-1"
-ruleflow-group "GROUP-1"
+agenda-group "GROUP-1"
     when
     	$obj:ArrayList()
     then
@@ -15,7 +15,7 @@ ruleflow-group "GROUP-1"
 end
 
 rule "shouldFire-2"
-ruleflow-group "GROUP-2"
+agenda-group "GROUP-2"
     when
     	$obj:ArrayList()
     then
@@ -24,7 +24,7 @@ ruleflow-group "GROUP-2"
 end
 
 rule "shouldFire-3"
-ruleflow-group "GROUP-3"
+agenda-group "GROUP-3"
     when
     	$obj:ArrayList()
     then
@@ -33,7 +33,7 @@ ruleflow-group "GROUP-3"
 end
 
 rule "shouldFire-4"
-ruleflow-group "GROUP-4"
+agenda-group "GROUP-4"
     when
     	$obj:ArrayList()
     then

@@ -18,7 +18,7 @@ import function pl.boboli.engineer.test.feature.CritSection.sleep;
 
 
 rule "rule-0"
-	agenda-group "PARALLEL_GROUP"
+	agenda-group "P_GROUP"
     when
     	$obj:ArrayList()
     then
@@ -34,7 +34,7 @@ rule "rule-0"
 end
 
 rule "rule-1"
-	agenda-group "PARALLEL_GROUP"
+	agenda-group "P_GROUP"
     when
     	$obj:ArrayList()
     then
@@ -51,7 +51,7 @@ end
 
 
 rule "rule-2"
-	agenda-group "PARALLEL_GROUP"
+	agenda-group "P_GROUP"
     when
     	$obj:ArrayList()
     then
@@ -66,7 +66,7 @@ rule "rule-2"
 end
 
 rule "rule-3"
-	agenda-group "PARALLEL_GROUP"
+	agenda-group "P_GROUP"
     when
     	$obj:ArrayList()
     then
@@ -80,7 +80,7 @@ rule "rule-3"
     	waitOnStop(stop,ruleIndex);
 end
 rule "rule-4"
-	agenda-group "PARALLEL_GROUP"
+	agenda-group "P_GROUP"
     when
     	$obj:ArrayList()
     then
@@ -95,7 +95,7 @@ rule "rule-4"
     	waitOnStop(stop,ruleIndex);
 end
 rule "rule-5"
-	agenda-group "PARALLEL_GROUP"
+	agenda-group "P_GROUP"
     when
     	$obj:ArrayList()
     then
@@ -110,7 +110,7 @@ rule "rule-5"
     	waitOnStop(stop,ruleIndex);
 end
 rule "rule-6"
-	agenda-group "PARALLEL_GROUP"
+	agenda-group "P_GROUP"
     when
     	$obj:ArrayList()
     then
@@ -125,7 +125,7 @@ rule "rule-6"
     	waitOnStop(stop,ruleIndex);
 end
 rule "rule-7"
-	agenda-group "PARALLEL_GROUP"
+	agenda-group "P_GROUP"
     when
     	$obj:ArrayList()
     then
@@ -140,7 +140,7 @@ rule "rule-7"
     	waitOnStop(stop,ruleIndex);
 end
 rule "rule-8"
-	agenda-group "PARALLEL_GROUP"
+	agenda-group "P_GROUP"
     when
     	$obj:ArrayList()
     then
@@ -155,7 +155,7 @@ rule "rule-8"
     	waitOnStop(stop,ruleIndex);
 end
 rule "rule-9"
-	agenda-group "PARALLEL_GROUP"
+	agenda-group "P_GROUP"
     when
     	$obj:ArrayList()
     then
@@ -170,7 +170,7 @@ rule "rule-9"
     	waitOnStop(stop,ruleIndex);
 end
 rule "rule-10"
-	agenda-group "PARALLEL_GROUP"
+	agenda-group "P_GROUP"
     when
     	$obj:ArrayList()
     then

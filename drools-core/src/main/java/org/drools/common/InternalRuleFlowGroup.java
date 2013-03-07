@@ -64,7 +64,11 @@ public interface InternalRuleFlowGroup extends RuleFlowGroup {
     
     Map<Long, String> getNodeInstances();
 
+    public boolean isParallel();
+
     void setParallel(boolean parallel);
 
     void setMaxThreadsCount(int maxThreadsCount);
+
+    int getMaxThreadsCount();
 }

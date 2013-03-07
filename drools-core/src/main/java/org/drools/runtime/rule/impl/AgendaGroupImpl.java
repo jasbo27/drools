@@ -32,6 +32,10 @@ public class AgendaGroupImpl implements AgendaGroup, Externalizable {
     private String name;
     
     private InternalAgenda agenda;
+
+    private boolean parallel;
+
+    private int maxThreadCount;
     
     AgendaGroupImpl() {
         
@@ -63,7 +67,27 @@ public class AgendaGroupImpl implements AgendaGroup, Externalizable {
         this.agenda.setFocus( this.name );
     }
 
-//    public Collection<Activation> getActivations() {
+    public boolean isParallel() {
+        org.drools.spi.AgendaGroup group= this.agenda.getAgendaGroup(this.name);
+        return group.isParallel();
+    }
+
+    public void setParallel(boolean parallel) {
+        org.drools.spi.AgendaGroup group= this.agenda.getAgendaGroup(this.name);
+        group.setParallel(parallel);
+    }
+
+    public int getMaxThreadCount() {
+        org.drools.spi.AgendaGroup group= this.agenda.getAgendaGroup(this.name);
+        return group.getMaxThreadCount();
+    }
+
+    public void setMaxThreadCount(int maxThreadCount) {
+        org.drools.spi.AgendaGroup group= this.agenda.getAgendaGroup(this.name);
+        group.setMaxThreadCount(maxThreadCount);
+    }
+
+    //    public Collection<Activation> getActivations() {
 //        return this.agenda.getAgendaGroup( this.name ).getActivations();
 //    }
 

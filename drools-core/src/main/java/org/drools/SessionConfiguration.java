@@ -91,7 +91,7 @@ public class SessionConfiguration
     
     private transient TimerJobFactoryManager timerJobFactoryManager;
     private TimerJobFactoryType              timerJobFactoryType;
-    private boolean parallelismEnabled;
+    private boolean parallelismEnabled = true;
     private int threadCount;
 
 

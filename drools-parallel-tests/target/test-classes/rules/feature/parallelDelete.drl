@@ -18,7 +18,7 @@ import function pl.boboli.engineer.test.feature.CritSection.sleep;
 
 
 rule "rule-0"
-	agenda-group "PARALLEL_GROUP"
+	agenda-group "P_GROUP"
     when
     	$obj:DummyObject(
     		name =="rule-0"
@@ -32,7 +32,7 @@ rule "rule-0"
 end
 
 rule "rule-1"
-	agenda-group "PARALLEL_GROUP"
+	agenda-group "P_GROUP"
     when
     	$obj:DummyObject(
     		name =="rule-1"
@@ -47,7 +47,7 @@ end
 
 
 rule "rule-2"
-	agenda-group "PARALLEL_GROUP"
+	agenda-group "P_GROUP"
     when
     	$obj:DummyObject(
     		name =="rule-2"
@@ -61,7 +61,7 @@ rule "rule-2"
 end
 
 rule "rule-3"
-	agenda-group "PARALLEL_GROUP"
+	agenda-group "P_GROUP"
     when
     	$obj:DummyObject(
     		name =="rule-3"
@@ -74,7 +74,7 @@ rule "rule-3"
     	waitOnStop(stop,ruleIndex);
 end
 rule "rule-4"
-	agenda-group "PARALLEL_GROUP"
+	agenda-group "P_GROUP"
     when
     	$obj:DummyObject(
     		name =="rule-4"
@@ -87,7 +87,7 @@ rule "rule-4"
     	waitOnStop(stop,ruleIndex);
 end
 rule "rule-5"
-	agenda-group "PARALLEL_GROUP"
+	agenda-group "P_GROUP"
     when
     	$obj:DummyObject(
     		name =="rule-5"
@@ -100,7 +100,7 @@ rule "rule-5"
     	waitOnStop(stop,ruleIndex);
 end
 rule "rule-6"
-	agenda-group "PARALLEL_GROUP"
+	agenda-group "P_GROUP"
     when
     	$obj:DummyObject(
     		name =="rule-6"
@@ -113,7 +113,7 @@ rule "rule-6"
     	waitOnStop(stop,ruleIndex);
 end
 rule "rule-7"
-	agenda-group "PARALLEL_GROUP"
+	agenda-group "P_GROUP"
     when
     	$obj:DummyObject(
     		name =="rule-7"
@@ -126,7 +126,7 @@ rule "rule-7"
     	waitOnStop(stop,ruleIndex);
 end
 rule "rule-8"
-	agenda-group "PARALLEL_GROUP"
+	agenda-group "P_GROUP"
     when
     	$obj:DummyObject(
     		name =="rule-8"
@@ -139,7 +139,7 @@ rule "rule-8"
     	waitOnStop(stop,ruleIndex);
 end
 rule "rule-9"
-	agenda-group "PARALLEL_GROUP"
+	agenda-group "P_GROUP"
     when
     	$obj:DummyObject(
     		name =="rule-9"
@@ -152,7 +152,7 @@ rule "rule-9"
     	waitOnStop(stop,ruleIndex);
 end
 rule "rule-10"
-	agenda-group "PARALLEL_GROUP"
+	agenda-group "P_GROUP"
     when
     	$obj:DummyObject(
     		name =="rule-10"

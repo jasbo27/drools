@@ -24,12 +24,14 @@ public class GroupMinThreadsTest extends AbstractTest{
 	public void setUp() throws Exception {
 		ruleLocations = new String[] {"rules/feature/nthreads.drl"};
 		setParallismEnabled(true);
-        setThreadCount(MAX_THREADS);
 		super.setUp();
 		ksession.setGlobal("start", start);
 		ksession.setGlobal("stop", stop);
-		
-		ksession.getAgenda().getAgendaGroup("PARALLEL_GROUP").setFocus();
+
+        org.drools.runtime.rule.AgendaGroup group =ksession.getAgenda().getAgendaGroup("P_GROUP");//.setFocus();
+        group.setParallel(true);
+        group.setMaxThreadCount(MAX_THREADS);
+        group.setFocus();
 		eventList = new ArrayList<String>();
 		ksession.insert(eventList);
 	}

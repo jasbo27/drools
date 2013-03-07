@@ -26,7 +26,7 @@
 -------------------------------------------------------
  T E S T S
 -------------------------------------------------------
-Running pl.boboli.engineer.test.feature.MinThreadsTest
+Running pl.boboli.engineer.test.feature.GroupMinThreadsTest
 SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".
 SLF4J: Defaulting to no-operation (NOP) logger implementation
 SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.
@@ -40057,7 +40057,7 @@ Testing delete...1/1
 Deleting (DummyObject [name=hippo, i=0, j=0]) from working memory
 Delete test completed succesfuly
 Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.04 sec
-Running pl.boboli.engineer.test.regression.GroupSequenceTest
+Running pl.boboli.engineer.test.regression.RuleFlowSequenceTest
 Testing group sequence tesst...1/1
 Rule in group GROUP-1 fired succesfully
 Rule in group GROUP-2 fired succesfully
@@ -40087,7 +40087,7 @@ Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.086 sec
 Results :
 
 Tests in error: 
-  testNThreads(pl.boboli.engineer.test.feature.MinThreadsTest): Could not parse knowledge.
+  testNThreads(pl.boboli.engineer.test.feature.GroupMinThreadsTest): Could not parse knowledge.
 
 Tests run: 10, Failures: 0, Errors: 1, Skipped: 0
 

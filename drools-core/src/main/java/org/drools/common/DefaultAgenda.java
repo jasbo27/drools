@@ -765,7 +765,8 @@ public class DefaultAgenda
         AgendaGroup agendaGroup = getAgendaGroup( name );
         agendaGroup.setAutoFocusActivator( ctx );
         setFocus( agendaGroup );
-    }    
+    }
+
 
     /*
      * (non-Javadoc)
@@ -1232,8 +1233,20 @@ public class DefaultAgenda
                         }
                         try {
                             if ( filter == null || filter.accept( item ) ) {
+                                boolean parallel;
+                                if(ruleFlowGroup!=null){
+                                    parallel= ruleFlowGroup.isParallel();
+                                    if(ruleFlowGroup.getMaxThreadsCount()!=0){
+                                        parallelRuleThreadCount=ruleFlowGroup.getMaxThreadsCount();
+                                    }
+                                } else{
+                                    parallel = group.isParallel();
+                                    if(group.getMaxThreadCount()!=0){
+                                        parallelRuleThreadCount=group.getMaxThreadCount();
+                                    }
+                                }
                                 // fire it
-                                if (parallelismEnabled == true && group.getName().startsWith("PARALLEL_")) {
+                                if (parallelismEnabled == true && parallel) {
                                     addParallelActivation(item);
                                 } else {
                                     fireActivation(item);

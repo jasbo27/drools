@@ -1,0 +1,52 @@
+package pl.boboli.engineer.teoria.rules
+
+import pl.boboli.engineer.test.model.DummyObject;
+ 
+import java.util.ArrayList;
+
+
+rule "shouldFire-1"
+ruleflow-group "GROUP-1"
+    when
+    	$obj:ArrayList()
+    then
+    	$obj.add("GROUP-1");
+    	System.out.println("Rule in group GROUP-1 fired succesfully");
+end
+
+rule "shouldFire-2"
+ruleflow-group "GROUP-2"
+    when
+    	$obj:ArrayList()
+    then
+    	$obj.add("GROUP-2");
+    	System.out.println("Rule in group GROUP-2 fired succesfully");
+end
+
+rule "shouldFire-3"
+ruleflow-group "GROUP-3"
+    when
+    	$obj:ArrayList()
+    then
+    	$obj.add("GROUP-3");
+    	System.out.println("Rule in group GROUP-3 fired succesfully");
+end
+
+rule "shouldFire-4"
+ruleflow-group "GROUP-4"
+    when
+    	$obj:ArrayList()
+    then
+    	$obj.add("GROUP-4");
+    	System.out.println("Rule in group GROUP-4 fired succesfully");
+end
+
+
+
+
+
+
+
+
+
+

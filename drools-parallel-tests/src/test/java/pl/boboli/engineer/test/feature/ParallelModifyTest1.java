@@ -38,7 +38,10 @@ public class ParallelModifyTest1 extends AbstractTest {
 		ksession.setGlobal("stop", stop);
 		ksession.setGlobal("ITERATIONS", ITERATIONS);
 		ksession.setGlobal("SLEEP_TIME", SLEEP_TIME);
-		ksession.getAgenda().getAgendaGroup("PARALLEL_GROUP").setFocus();
+        org.drools.runtime.rule.AgendaGroup group =ksession.getAgenda().getAgendaGroup("P_GROUP");//.setFocus();
+        group.setParallel(true);
+        group.setMaxThreadCount(THREADS);
+        group.setFocus();
 	}
 
 	@After
@@ -61,7 +64,7 @@ public class ParallelModifyTest1 extends AbstractTest {
 			// sprawdzenie czy wartości przed zmianą są zgodne z oczekiwaniami
 			verifyObjectsBeforeChange(ksession);
 			// uruchomienie reguł równoległych
-			ksession.getAgenda().getAgendaGroup("GROUP").setFocus();
+			ksession.getAgenda().getAgendaGroup("P_GROUP").setFocus();
 			ksession.fireAllRules();
 			System.out.println("Running rules for the second time");
 			// uruchomienie pozostałych reguł

@@ -24,7 +24,7 @@ import pl.boboli.engineer.test.external.BillingSystem;
 
 
 rule "getCustomerFactInParallel"
-	agenda-group "PARALLEL_GROUP"
+	agenda-group "P_GROUP"
     when
     	not CustomerFact(
     		
@@ -35,7 +35,7 @@ rule "getCustomerFactInParallel"
 end
 
 rule "getDueFactsInParallel"
-	agenda-group "PARALLEL_GROUP"
+	agenda-group "P_GROUP"
     when
     	not DueFact(
     		
@@ -50,7 +50,7 @@ end
 
 
 rule "getFeasibilityFactInParallel"
-	agenda-group "PARALLEL_GROUP"
+	agenda-group "P_GROUP"
     when
     	not FeasibilityFact(
     		
@@ -60,7 +60,7 @@ rule "getFeasibilityFactInParallel"
 end
 
 rule "getBillingHistoryFactsInParallel"
-	agenda-group "PARALLEL_GROUP"
+	agenda-group "P_GROUP"
     when
     	not BillingHistoryFact(
     		

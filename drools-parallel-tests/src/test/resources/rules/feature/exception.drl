@@ -19,7 +19,7 @@ import function pl.boboli.engineer.test.feature.CritSection.sleep;
 
 
 rule "rule-0"
-	agenda-group "PARALLEL_GROUP"
+	agenda-group "P_GROUP"
     when
     	$obj:DummyObject(
     	)

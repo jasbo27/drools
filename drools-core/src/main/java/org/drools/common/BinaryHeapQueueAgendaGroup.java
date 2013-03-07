@@ -48,6 +48,9 @@ public class BinaryHeapQueueAgendaGroup
     private boolean           active;
 
     private PropagationContext autoFocusActivator;
+
+    private boolean parallel;
+    private int maxThreadCount;
     /**
      * Construct an <code>AgendaGroup</code> with the given name.
      *
@@ -164,5 +167,21 @@ public class BinaryHeapQueueAgendaGroup
 
     public void remove(AgendaItem agendaItem) {
         this.queue.dequeue( agendaItem.getIndex() );
+    }
+
+    public boolean isParallel() {
+        return parallel;
+    }
+
+    public void setParallel(boolean parallel) {
+        this.parallel = parallel;
+    }
+
+    public int getMaxThreadCount() {
+        return maxThreadCount;
+    }
+
+    public void setMaxThreadCount(int maxThreadCount) {
+        this.maxThreadCount = maxThreadCount;
     }
 }

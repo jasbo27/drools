@@ -56,6 +56,10 @@ public class ArrayAgendaGroup
     
     private PropagationContext autoFocusActivator;
 
+    private boolean parallel;
+
+    private int maxThreadCount;
+
     public ArrayAgendaGroup() {
 
     }
@@ -230,5 +234,21 @@ public class ArrayAgendaGroup
 
     public PropagationContext getAutoFocusActivator() {
         return autoFocusActivator;
+    }
+
+    public boolean isParallel() {
+        return parallel;
+    }
+
+    public void setParallel(boolean parallel) {
+        this.parallel = parallel;
+    }
+
+    public int getMaxThreadCount() {
+        return maxThreadCount;
+    }
+
+    public void setMaxThreadCount(int maxThreadCount) {
+        this.maxThreadCount = maxThreadCount;
     }
 }

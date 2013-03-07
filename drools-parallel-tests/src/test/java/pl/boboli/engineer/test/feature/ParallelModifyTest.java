@@ -35,13 +35,15 @@ public class ParallelModifyTest extends AbstractTest {
 	public void setUp() throws Exception {
 		ruleLocations = new String[] { "rules/feature/parallelModify.drl" };
 		setParallismEnabled(true);
-        setThreadCount(THREADS);
 		super.setUp();
 		ksession.setGlobal("start", start);
 		ksession.setGlobal("stop", stop);
 		ksession.setGlobal("ITERATIONS", ITERATIONS);
 		ksession.setGlobal("SLEEP_TIME", SLEEP_TIME);
-		ksession.getAgenda().getAgendaGroup("PARALLEL_GROUP").setFocus();
+        org.drools.runtime.rule.AgendaGroup group =ksession.getAgenda().getAgendaGroup("P_GROUP");//.setFocus();
+        group.setParallel(true);
+        group.setMaxThreadCount(THREADS);
+        group.setFocus();
 	}
 
 	@After
@@ -53,7 +55,9 @@ public class ParallelModifyTest extends AbstractTest {
 	public void testNThreads() throws InterruptedException {
 		System.out.println("Testing n threads...1/1");
 		for (int i = 0; i < ITERATIONS; i++) {
-			ksession.getAgenda().getAgendaGroup("PARALLEL_GROUP").setFocus();
+            org.drools.runtime.rule.AgendaGroup group =ksession.getAgenda().getAgendaGroup("P_GROUP");//.setFocus();
+            group.setParallel(true);
+            group.setFocus();
 			System.out.println("Iteration " +i+" started...");
 			
 			//sprawdzenie, czy sesja jest pusta
@@ -69,6 +73,7 @@ public class ParallelModifyTest extends AbstractTest {
 			//uruchomienie reguł
 			ksession.fireAllRules();
 			ksession.getAgenda().getAgendaGroup("NON_PARALLEL_GROUP").setFocus();
+
 			//uruchomienie reguł po raz drugi
 			ksession.fireAllRules();
 			//sprawdzenie, czy wartości zostały zmienione zgodnie z założeniami

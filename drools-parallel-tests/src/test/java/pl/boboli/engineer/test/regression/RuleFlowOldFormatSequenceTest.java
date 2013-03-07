@@ -1,17 +1,16 @@
 package pl.boboli.engineer.test.regression;
 
-import static org.junit.Assert.assertTrue;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import org.drools.runtime.rule.FactHandle;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-
 import pl.boboli.engineer.test.AbstractTest;
 import pl.boboli.engineer.test.utils.ObjectUtil;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.junit.Assert.assertTrue;
 
 public class RuleFlowOldFormatSequenceTest extends AbstractTest{
 		List<String> eventList;
@@ -19,7 +18,7 @@ public class RuleFlowOldFormatSequenceTest extends AbstractTest{
 		@Before
 		public void setUp() throws Exception {
 			eventList = new ArrayList<String>();
-			ruleLocations = new String[] {"rules/regression/groupSequence.drl","rules/regression/dummyProcess.rf"};
+			ruleLocations = new String[] {"rules/regression/ruleFlowSequence.drl","rules/regression/dummyProcessOldFormat.rf"};
 			super.setUp();
 			handle = ksession.insert(eventList);
 		}
@@ -44,7 +43,7 @@ public class RuleFlowOldFormatSequenceTest extends AbstractTest{
 				assertTrue(list.get(i).equals("GROUP-"+(i+1)));
 			}
 			
-			System.out.println("Group sequence test completed succesfuly");
+			System.out.println("RuleFlow sequence test completed succesfuly");
 		}
 		
 

@@ -19,7 +19,7 @@ public class RuleFlowSequenceTest extends AbstractTest{
 		@Before
 		public void setUp() throws Exception {
 			eventList = new ArrayList<String>();
-			ruleLocations = new String[] {"rules/regression/groupSequence.drl","rules/regression/dummyProcess.rf"};
+			ruleLocations = new String[] {"rules/regression/ruleFlowSequence.drl","rules/regression/dummyProcess.rf"};
 			super.setUp();
 			handle = ksession.insert(eventList);
 		}
@@ -44,7 +44,7 @@ public class RuleFlowSequenceTest extends AbstractTest{
 				assertTrue(list.get(i).equals("GROUP-"+(i+1)));
 			}
 			
-			System.out.println("Group sequence test completed succesfuly");
+			System.out.println("RuleFlow sequence test completed succesfuly");
 		}
 		
 

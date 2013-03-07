@@ -16,7 +16,7 @@ import function pl.boboli.engineer.test.feature.CritSection.waitOnStop;
 
 
 rule "rule-0"
-	agenda-group "PARALLEL_GROUP"
+	agenda-group "P_GROUP"
     when
     	$obj:ArrayList()
     then
@@ -32,7 +32,7 @@ rule "rule-0"
 end
 
 rule "rule-1"
-	agenda-group "PARALLEL_GROUP"
+	agenda-group "P_GROUP"
     when
     	$obj:ArrayList()
     then
@@ -46,7 +46,7 @@ rule "rule-1"
 end
 
 rule "rule-2"
-	agenda-group "PARALLEL_GROUP"
+	agenda-group "P_GROUP"
     when
     	$obj:ArrayList()
     then
@@ -60,7 +60,7 @@ rule "rule-2"
 end
 
 rule "rule-3"
-	agenda-group "PARALLEL_GROUP"
+	agenda-group "P_GROUP"
     when
     	$obj:ArrayList()
     then
@@ -73,7 +73,7 @@ rule "rule-3"
     	System.out.println("Rule thread-4 fired succesfully");
 end
 rule "rule-4"
-	agenda-group "PARALLEL_GROUP"
+	agenda-group "P_GROUP"
     when
     	$obj:ArrayList()
     then
@@ -86,7 +86,7 @@ rule "rule-4"
     	System.out.println("Rule thread-4 fired succesfully");
 end
 rule "rule-5"
-	agenda-group "PARALLEL_GROUP"
+	agenda-group "P_GROUP"
     when
     	$obj:ArrayList()
     then
@@ -99,7 +99,7 @@ rule "rule-5"
     	System.out.println("Rule thread-4 fired succesfully");
 end
 rule "rule-6"
-	agenda-group "PARALLEL_GROUP"
+	agenda-group "P_GROUP"
     when
     	$obj:ArrayList()
     then
@@ -112,7 +112,7 @@ rule "rule-6"
     	System.out.println("Rule thread-4 fired succesfully");
 end
 rule "rule-7"
-	agenda-group "PARALLEL_GROUP"
+	agenda-group "P_GROUP"
     when
     	$obj:ArrayList()
     then
@@ -125,7 +125,7 @@ rule "rule-7"
     	System.out.println("Rule thread-4 fired succesfully");
 end
 rule "rule-8"
-	agenda-group "PARALLEL_GROUP"
+	agenda-group "P_GROUP"
     when
     	$obj:ArrayList()
     then
@@ -138,7 +138,7 @@ rule "rule-8"
     	System.out.println("Rule thread-4 fired succesfully");
 end
 rule "rule-9"
-	agenda-group "PARALLEL_GROUP"
+	agenda-group "P_GROUP"
     when
     	$obj:ArrayList()
     then
@@ -151,7 +151,7 @@ rule "rule-9"
     	System.out.println("Rule thread-4 fired succesfully");
 end
 rule "rule-10"
-	agenda-group "PARALLEL_GROUP"
+	agenda-group "P_GROUP"
     when
     	$obj:ArrayList()
     then

@@ -64,6 +64,8 @@ public interface AgendaGroup
     public boolean isActive();
 
     void setAutoFocusActivator(PropagationContext ctx);
+
+
     
     
     PropagationContext getAutoFocusActivator();

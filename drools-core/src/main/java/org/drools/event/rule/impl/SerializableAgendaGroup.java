@@ -26,6 +26,10 @@ import org.drools.runtime.rule.AgendaGroup;
 public class SerializableAgendaGroup implements AgendaGroup, Externalizable {
     
     private String name;
+
+    private boolean parallel;
+
+    private int maxThreadCount;
     
     SerializableAgendaGroup() {
         
@@ -56,4 +60,19 @@ public class SerializableAgendaGroup implements AgendaGroup, Externalizable {
         throw new UnsupportedOperationException();
     }
 
+    public boolean isParallel() {
+        return parallel;
+    }
+
+    public void setParallel(boolean parallel) {
+        this.parallel = parallel;
+    }
+
+    public int getMaxThreadCount() {
+        return maxThreadCount;
+    }
+
+    public void setMaxThreadCount(int maxThreadCount) {
+        this.maxThreadCount = maxThreadCount;
+    }
 }

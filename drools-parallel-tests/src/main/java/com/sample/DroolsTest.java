@@ -21,6 +21,7 @@ import org.drools.logger.KnowledgeRuntimeLoggerFactory;
 import org.drools.runtime.ObjectFilter;
 import org.drools.runtime.StatefulKnowledgeSession;
 import org.drools.runtime.rule.Activation;
+import org.drools.runtime.rule.ActivationGroup;
 import org.drools.runtime.rule.AgendaFilter;
 
 import bank.model.Decyzja;
@@ -30,6 +31,7 @@ import bank.model.RynekKlienta;
 import bank.model.StatusKonta;
 import bank.model.Weryfikacja;
 import bank.model.Windykacja;
+import org.drools.runtime.rule.AgendaGroup;
 
 /**
  * This is a sample class to launch a rule.
@@ -50,8 +52,15 @@ public class DroolsTest {
             ksession.insert(klient);
             ksession.insert(konto);
             ksession.insert(windykacja);
+
+
             ksession.insert(weryfikacja);
+            AgendaGroup group = ksession.getAgenda().getAgendaGroup("POBIERZ_DANE");
+            group.setParallel(true);
+            group.setMaxThreadCount(10);
+            group.setFocus();
             ksession.fireAllRules();
+
             
             Collection<Object> wyniki = ksession.getObjects((new ObjectFilter() {
 				public boolean accept(Object object) {

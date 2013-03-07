@@ -15,7 +15,7 @@ public class AbstractTest extends KnowledgeBaseReader {
 	protected String[] ruleLocations;
 	protected String[] processesLocations ;
 	protected boolean parallismEnabled;
-    protected int threadCount;
+   // protected int threadCount;
 	@Before
 	public void setUp() throws Exception {
 		ksession = readSession();
@@ -24,11 +24,11 @@ public class AbstractTest extends KnowledgeBaseReader {
     protected StatefulKnowledgeSession readSession() throws Exception {
         KnowledgeBase kbase = readKnowledgeBase(ruleLocations);
 
-        SessionConfiguration sessionConfiguration = SessionConfiguration.getDefaultInstance();
-        sessionConfiguration.setParallelismEnabled(parallismEnabled);
-        sessionConfiguration.setThreadCount(threadCount);
-        StatefulKnowledgeSession session = kbase.newStatefulKnowledgeSession(sessionConfiguration, null);
-
+        //SessionConfiguration sessionConfiguration = SessionConfiguration.getDefaultInstance();
+        //sessionConfiguration.setParallelismEnabled(parallismEnabled);
+        //sessionConfiguration.setThreadCount(threadCount);
+        //StatefulKnowledgeSession session = kbase.newStatefulKnowledgeSession(sessionConfiguration, null);
+        StatefulKnowledgeSession session = kbase.newStatefulKnowledgeSession();
         return session;
     }
 
@@ -46,12 +46,12 @@ public class AbstractTest extends KnowledgeBaseReader {
 	protected void setParallismEnabled(boolean parallismEnabled) {
 		this.parallismEnabled = parallismEnabled;
 	}
-
+     /*
     public int getThreadCount() {
         return threadCount;
     }
 
-    public void setThreadCount(int threadCount) {
+   public void setThreadCount(int threadCount) {
         this.threadCount = threadCount;
-    }
+    }*/
 }

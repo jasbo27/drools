@@ -32,13 +32,15 @@ public class ParallelDeleteTest extends AbstractTest {
 	public void setUp() throws Exception {
 		ruleLocations = new String[] { "rules/feature/parallelDelete.drl" };
 		setParallismEnabled(true);
-        setThreadCount(THREADS);
 		super.setUp();
 		ksession.setGlobal("start", start);
 		ksession.setGlobal("stop", stop);
 		ksession.setGlobal("ITERATIONS", ITERATIONS);
 		ksession.setGlobal("SLEEP_TIME", SLEEP_TIME);
-		ksession.getAgenda().getAgendaGroup("PARALLEL_GROUP").setFocus();
+        org.drools.runtime.rule.AgendaGroup group =ksession.getAgenda().getAgendaGroup("P_GROUP");//.setFocus();
+        group.setParallel(true);
+        group.setMaxThreadCount(THREADS);
+        group.setFocus();
 	}
 
 	@After
@@ -50,7 +52,9 @@ public class ParallelDeleteTest extends AbstractTest {
 	public void testNThreads() throws InterruptedException {
 		System.out.println("Testing n threads...1/1");
 		for (int i = 0; i < ITERATIONS; i++) {
-			ksession.getAgenda().getAgendaGroup("PARALLEL_GROUP").setFocus();
+            org.drools.runtime.rule.AgendaGroup group =ksession.getAgenda().getAgendaGroup("P_GROUP");//.setFocus();
+            group.setParallel(true);
+            group.setFocus();
 			System.out.println("Iteration " +i+" started...");
 			assertTrue(ObjectUtil.getObjects(ksession,
 					DummyObject.class).isEmpty());
