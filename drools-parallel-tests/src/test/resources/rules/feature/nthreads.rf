@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<process xmlns="http://drools.org/drools-5.0/process"
+         xmlns:xs="http://www.w3.org/2001/XMLSchema-instance"
+         xs:schemaLocation="http://drools.org/drools-5.0/process drools-processes-5.0.xsd"
+         type="RuleFlow" name="dummyProcess" id="dummyProcess" package-name="pl.boboli.engineer.teoria.rules" >
+
+    <header>
+    </header>
+
+    <nodes>
+        <start id="1" name="Start" x="30" y="31" width="48" height="48" />
+        <end id="2" name="End" x="714" y="33" width="48" height="48" />
+        <ruleSet id="3" name="GROUP-1" x="145" y="32" width="80" height="48" ruleFlowGroup="P_GROUP" parallel="true" maxThreadCount="11"/>
+        <ruleSet id="4" name="GROUP-2" x="281" y="34" width="80" height="48" ruleFlowGroup="GROUP-2" parallel="false" maxThreadCount="0"/>
+        <ruleSet id="5" name="GROUP-3" x="416" y="35" width="80" height="48" ruleFlowGroup="GROUP-3" parallel="false" maxThreadCount="0"/>
+        <ruleSet id="6" name="GROUP-4" x="560" y="35" width="80" height="48" ruleFlowGroup="GROUP-4" parallel="false" maxThreadCount="0"/>
+    </nodes>
+
+    <connections>
+        <connection from="6" to="2" />
+        <connection from="3" to="4" />
+        <connection from="4" to="5" />
+        <connection from="5" to="6" />
+        <connection from="1" to="3" />
+    </connections>
+
+</process>

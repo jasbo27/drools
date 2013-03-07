@@ -22,7 +22,7 @@ import pl.boboli.engineer.test.AbstractTest;
 import pl.boboli.engineer.test.model.DummyObject;
 import pl.boboli.engineer.test.utils.ObjectUtil;
 
-public class ExceptionTest extends AbstractTest {
+public class ExceptionPropagationTest extends AbstractTest {
 	final int THREADS = 2;
 	final int ITERATIONS = 2;
 	final int SLEEP_TIME = 0;

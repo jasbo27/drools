@@ -13,13 +13,13 @@ import org.junit.Test;
 import pl.boboli.engineer.test.AbstractTest;
 import pl.boboli.engineer.test.utils.ObjectUtil;
 
-public class GroupSequenceTest extends AbstractTest{
+public class RuleFlowSequenceTest extends AbstractTest{
 		List<String> eventList;
 		FactHandle handle;
 		@Before
 		public void setUp() throws Exception {
 			eventList = new ArrayList<String>();
-			ruleLocations = new String[] {"rules/regression/ruleFlowSequence.drl","rules/regression/dummyProcess.rf"};
+			ruleLocations = new String[] {"rules/regression/groupSequence.drl","rules/regression/dummyProcess.rf"};
 			super.setUp();
 			handle = ksession.insert(eventList);
 		}
